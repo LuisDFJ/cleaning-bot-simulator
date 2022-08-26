@@ -41,7 +41,7 @@ function [time, step, clean_percent] = simulation( f, v, b, c, d, r, controller 
     clean_percent = 1;
     % Count initial amount of white pixels on the figure.
     c_white = count_white_pixels( f, 255 );
-    
+    disp( c_white )
     % Tic is a Matlab expresion that sets a timer. The timer stops when toc
     % is called by the program.
     tic;
@@ -81,7 +81,7 @@ function [time, step, clean_percent] = simulation( f, v, b, c, d, r, controller 
                     break
                 end
             end
-            pause( 1/1000 )
+            %pause( 1/1000 )
         end
     catch
         fprintf( "Simulation failed\n" );

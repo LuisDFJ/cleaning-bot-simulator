@@ -1,4 +1,4 @@
-name = 'record_rand.mat';
+name = 'record.mat';
 
 if isfile( name )
     record = load( 'record.mat' );

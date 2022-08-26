@@ -21,8 +21,8 @@ v = pack_collision( collision_blocks );
 b = blocks;
 
 % Initial position and direction of the robot.
-c = [150;200];
-d = 2*rand(2,1) - 1;
+c = [50;250];
+d = 2*rand(2,1) - 1; %[0.79;0.61];
 
 % Normalized initial direction of the robot. It is normalized so on each
 % simulation step the robot will move 1unit of distance (1cm). To increase
