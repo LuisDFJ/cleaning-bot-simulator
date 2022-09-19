@@ -11,7 +11,6 @@
 function [time, step, clean_percent] = simulation( f, v, b, c, d, r, controller ) 
     % Draws the walls, obstacles and cleanning area on the figure.
     generate_room( f, b );
-    
     % ROBOT's GRAPHIC REPRESENTATION:
     %   1. Selects figure f for drawing.
     figure(f);
@@ -26,7 +25,7 @@ function [time, step, clean_percent] = simulation( f, v, b, c, d, r, controller 
     %     * p is a dynamic plot that will refresh on each iteration with
     %     the actual position of the robot and its previous steps.
     path = c';
-    p = plot( [ path(:,1); c(1) ], [ path(:,2); c(2) ], 'y', 'linewidth', 1.5 * r );
+    p = plot( [ path(:,1); c(1) ], [ path(:,2); c(2) ], 'y', 'linewidth', 1.5*r );
     p.XDataSource = '[ path(:,1); c(1) ]';
     p.YDataSource = '[ path(:,2); c(2) ]';
     %   4. Creates a dynamic plot of the robot (a circle).
@@ -67,9 +66,9 @@ function [time, step, clean_percent] = simulation( f, v, b, c, d, r, controller 
             % If coliision occured.
             if flag
                 % Generates a random angle between [ +5°, -5° ] in radians.
-                angle = 5 * pi / 180 * rand() - 2.5 * pi / 180;
+                angle = [ 0, 5, -5 ];
                 % Change robot direction by calling the controller.
-                d = controller( d, C', angle );
+                d = controller( d, C', angle( randi( [1,3] ) ) );
                 % Append position to the current path.
                 path = [path; c'];
                 % Count number of remaining white pixels
@@ -81,8 +80,10 @@ function [time, step, clean_percent] = simulation( f, v, b, c, d, r, controller 
                     break
                 end
             end
-            %pause( 1/1000 )
+            pause( 1/1000 )
         end
+        c_clean = count_white_pixels( f, 255 );
+        clean_percent = c_clean / c_white ;
     catch
         fprintf( "Simulation failed\n" );
     end

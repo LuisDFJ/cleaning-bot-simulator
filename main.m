@@ -13,6 +13,7 @@ load( 'scene.mat', 'blocks', 'collision_blocks' )
 %  [n1;n2]
 %  * a is a random scalar with values between [ +5°, -5° ] in radians
 controller      = @(d, C, a) d - 2 * dot( d, C ) * C;
+controller_rot  = @(d, C, a) [ cosd(a), -sind(a); sind(a), cosd(a) ] * ( d - 2 * dot( d, C ) * C );
 
 % V is a N x 2 matrix with the (x, y) coords for each corner of the outer
 % perimeter of the room. Pack collision extracts the points from
@@ -21,8 +22,9 @@ v = pack_collision( collision_blocks );
 b = blocks;
 
 % Initial position and direction of the robot.
-c = [50;250];
-d = 2*rand(2,1) - 1; %[0.79;0.61];
+c = [340;300];
+d = [-0.8707;0.4918];
+
 
 % Normalized initial direction of the robot. It is normalized so on each
 % simulation step the robot will move 1unit of distance (1cm). To increase
@@ -34,7 +36,12 @@ d = d / norm(d);
 f = create_figure( [424,424] );
 
 % Run simulation. Check simulation.m for more info.
-[time, step, clean_percent] = simulation( f, v, b, c, d, 15, controller );
+% Exercise 1.12 Solution:
+%[time, step, clean_percent] = simulation( f, v, b, c, d, 15, controller );
+
+% Excercise 1.13 Solution:
+% Uncomment the following line (and comment the pevious one) to execute Ex. 1.13 solution. 
+[time, step, clean_percent] = simulation( f, v, b, c, d, 15, controller_rot );
 
 % Metrics of the simulation.
 fprintf( "Simulation time: %fs\n", time );
